@@ -11,7 +11,7 @@ export default function Page() {
           </div>
           <div>
             <h1 className="font-bold text-lg">Cesh Monk</h1>
-            <p className="text-sm">997*****270 ID: 00000</p>
+            <p className="text-sm">000*****000 ID: 00000</p>
           </div>
         </div>
 
