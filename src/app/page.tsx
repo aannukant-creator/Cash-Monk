@@ -159,8 +159,8 @@ export default function Page() {
           <ListTodo />
           <span className="text-xs">Tasks</span>
         </Link>
-        <button className="bg-red-600 text-white rounded-full p-4 -mt-8 shadow-lg">
-          <Headphones size={28} />
+        <button className="bg-red-600 text-white rounded-full p-3 -mt-6 shadow-lg">
+          <Headphones size={24} />
         </button>
         <a href="#" className="flex flex-col items-center">
           <FileText />
