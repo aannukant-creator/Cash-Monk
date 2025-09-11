@@ -12,6 +12,7 @@ export default function AccountPage() {
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
+    // This will run on the client side after hydration.
     setBalance(getBalance());
   }, []);
 
@@ -118,7 +119,7 @@ export default function AccountPage() {
           <Headphones className="mb-1 h-5 w-5" />
           <span>Support</span>
         </button>
-        <Link href="#" className="flex flex-col items-center">
+        <Link href="/blog" className="flex flex-col items-center">
           <FileText />
           <span className="text-xs">Blog</span>
         </Link>

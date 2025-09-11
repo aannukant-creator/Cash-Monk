@@ -17,18 +17,23 @@ export default function Page() {
   const [productIncome, setProductIncome] = useState(0);
 
   useEffect(() => {
-    const orders = getOrders();
-    const activeOrders = orders.filter(o => o.status === 'active');
-    
-    const now = new Date();
-    const currentDayIncome = activeOrders.reduce((acc, order) => {
-        // This is a simplified calculation.
-        // A real app would calculate income more precisely based on time passed.
-        return acc + (order.plan.dailyIncome * order.quantity); 
-    }, 0);
-    
-    setBalance(getBalance());
-    setProductIncome(currentDayIncome);
+    // This effect will run on the client side after hydration.
+    const updateBalanceAndIncome = () => {
+      const orders = getOrders();
+      const activeOrders = orders.filter(o => o.status === 'active');
+      
+      const now = new Date();
+      const currentDayIncome = activeOrders.reduce((acc, order) => {
+          // This is a simplified calculation.
+          // A real app would calculate income more precisely based on time passed.
+          return acc + (order.plan.dailyIncome * order.quantity); 
+      }, 0);
+      
+      setBalance(getBalance());
+      setProductIncome(currentDayIncome);
+    };
+
+    updateBalanceAndIncome();
 
   }, []);
 
@@ -184,7 +189,7 @@ export default function Page() {
           <Headphones />
            <span className="text-xs">Support</span>
         </button>
-        <Link href="#" className="flex flex-col items-center">
+        <Link href="/blog" className="flex flex-col items-center">
           <FileText />
           <span className="text-xs">Blog</span>
         </Link>
