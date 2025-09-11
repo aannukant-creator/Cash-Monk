@@ -8,8 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle, ChevronLeft, ClipboardCopy } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const UpiId = "apngrou@ptyes";
+const PayeeName = "Cesh Monk"; // You can change this to the actual payee name
 
 const CountdownTimer = () => {
     const [timeLeft, setTimeLeft] = useState(10 * 60); // 10 minutes in seconds
@@ -42,6 +44,8 @@ export default function PaymentPage() {
         });
     };
 
+    const upiLink = `upi://pay?pa=${UpiId}&pn=${encodeURIComponent(PayeeName)}&am=${amount}&cu=INR&tn=Recharge`;
+
     return (
         <div className="min-h-screen bg-gray-100 font-sans">
             <header className="bg-purple-600 text-white p-6 text-center relative">
@@ -63,14 +67,18 @@ export default function PaymentPage() {
                     <CardContent className="p-4">
                         <p className="font-semibold mb-3">Select Payment Method</p>
                         <div className="grid grid-cols-2 gap-4">
-                            <Button variant="outline" className="flex items-center justify-center gap-2 h-12 border-purple-600 border-2">
-                                <Image src="https://i.ibb.co/bF0W1S1/paytm-logo.png" alt="Paytm" width={24} height={24} />
-                                <span>Paytm</span>
-                            </Button>
-                             <Button variant="outline" className="flex items-center justify-center gap-2 h-12">
-                                <Image src="https://i.ibb.co/YcXW9S3/phonepe-logo.png" alt="PhonePe" width={24} height={24} />
-                                <span>Phonepe</span>
-                            </Button>
+                            <a href={upiLink} target="_blank" rel="noopener noreferrer">
+                                <Button variant="outline" className="w-full flex items-center justify-center gap-2 h-12 border-purple-600 border-2">
+                                    <Image src="https://i.ibb.co/bF0W1S1/paytm-logo.png" alt="Paytm" width={24} height={24} />
+                                    <span>Paytm</span>
+                                </Button>
+                            </a>
+                            <a href={upiLink} target="_blank" rel="noopener noreferrer">
+                                 <Button variant="outline" className="w-full flex items-center justify-center gap-2 h-12">
+                                    <Image src="https://i.ibb.co/YcXW9S3/phonepe-logo.png" alt="PhonePe" width={24} height={24} />
+                                    <span>Phonepe</span>
+                                </Button>
+                            </a>
                         </div>
                     </CardContent>
                 </Card>
