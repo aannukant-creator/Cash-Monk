@@ -26,20 +26,22 @@ export default function WithdrawPage() {
       </header>
 
       <main className="p-4">
-        <div className="bg-red-500 text-white rounded-2xl p-5 shadow-lg relative overflow-hidden">
-            <div className="flex items-start justify-between">
-                <div>
-                    <CreditCard className="w-8 h-8 mb-4 opacity-80" />
-                    <p className="text-2xl font-mono tracking-widest">0000 0000 0000</p>
-                </div>
-                <Switch id="card-switch" className="data-[state=checked]:bg-green-500 mt-1" />
-            </div>
-            <div className="mt-4">
-                <p className="text-sm opacity-80">Cardholder Name</p>
-                <p className="font-semibold">Cardholder Name</p>
-            </div>
-            <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-white/20 rounded-full"></div>
-        </div>
+        <Link href="/add-card">
+          <div className="bg-red-500 text-white rounded-2xl p-5 shadow-lg relative overflow-hidden cursor-pointer">
+              <div className="flex items-start justify-between">
+                  <div>
+                      <CreditCard className="w-8 h-8 mb-4 opacity-80" />
+                      <p className="text-2xl font-mono tracking-widest">0000 0000 0000</p>
+                  </div>
+                  <Switch id="card-switch" className="data-[state=checked]:bg-green-500 mt-1" />
+              </div>
+              <div className="mt-4">
+                  <p className="text-sm opacity-80">Cardholder Name</p>
+                  <p className="font-semibold">Cardholder Name</p>
+              </div>
+              <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-white/20 rounded-full"></div>
+          </div>
+        </Link>
 
         <div className="mt-6 bg-white p-4 rounded-lg shadow-sm">
             <div className="flex justify-between items-center mb-2">
