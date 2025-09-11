@@ -1,5 +1,6 @@
 import { Home, ListTodo, FileText, User, Wallet, Landmark, Users, ClipboardList, Send, Headphones, Headset, CircleHelp } from "lucide-react";
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Page() {
   return (
@@ -11,7 +12,7 @@ export default function Page() {
           </div>
           <div>
             <h1 className="font-bold text-lg">Cesh Monk</h1>
-            <p className="text-sm">000*****000 ID: 00000</p>
+            <p className="text-sm">0000000000 ID: 00000</p>
           </div>
         </div>
 
@@ -35,10 +36,10 @@ export default function Page() {
         </div>
 
         <div className="grid grid-cols-5 gap-2 text-center py-3 px-1 text-xs">
-          <div className="flex flex-col items-center">
+          <Link href="/recharge" className="flex flex-col items-center">
             <Wallet className="mb-1" />
             <span>Recharge</span>
-          </div>
+          </Link>
           <div className="flex flex-col items-center">
             <Landmark className="mb-1" />
             <span>Withdraw</span>
