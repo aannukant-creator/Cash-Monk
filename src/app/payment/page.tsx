@@ -45,6 +45,16 @@ export default function PaymentPage() {
             alert(`Copied: ${text}`);
         });
     };
+    
+    const handleSubmitUtr = () => {
+        if (utr.trim() === "") {
+            alert("Please enter the UTR number.");
+            return;
+        }
+        // In a real app, you would verify the UTR with your backend.
+        alert("Your recharge request has been submitted successfully!");
+        router.push('/account/recharge-record');
+    };
 
     const upiLink = `upi://pay?pa=${UpiId}&pn=${encodeURIComponent(PayeeName)}&am=${amount}&cu=INR&tn=Recharge`;
 
@@ -94,7 +104,7 @@ export default function PaymentPage() {
                     <CardContent className="p-4 space-y-4">
                         <div>
                             <p className="font-semibold mb-2">1. Transfer {amount} RS to the following upi</p>
-                            <a href={upiLink} target="_blank" rel="noopener noreferrer">
+                            <a href={upiLink} target="_blank" rel="noopener noreferrer" className="block">
                                 <div className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2 cursor-pointer hover:bg-gray-200">
                                     <span>{UpiId}</span>
                                     <Button size="icon" variant="ghost" onClick={(e) => copyToClipboard(e, UpiId)}>
@@ -102,7 +112,7 @@ export default function PaymentPage() {
                                     </Button>
                                 </div>
                             </a>
-                             <a href={upiLink} target="_blank" rel="noopener noreferrer">
+                             <a href={upiLink} target="_blank" rel="noopener noreferrer" className="block">
                                 <div className="bg-gray-100 p-3 rounded-lg flex justify-between items-center cursor-pointer hover:bg-gray-200">
                                     <span>{amount} RS</span>
                                     <Button size="icon" variant="ghost" onClick={(e) => copyToClipboard(e, amount)}>
@@ -120,7 +130,7 @@ export default function PaymentPage() {
                                     value={utr}
                                     onChange={(e) => setUtr(e.target.value)}
                                 />
-                                <Button className="bg-purple-600 hover:bg-purple-700 text-white">Submit</Button>
+                                <Button onClick={handleSubmitUtr} className="bg-purple-600 hover:bg-purple-700 text-white">Submit</Button>
                              </div>
                         </div>
                     </CardContent>
