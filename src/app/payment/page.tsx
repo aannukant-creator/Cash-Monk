@@ -38,7 +38,9 @@ export default function PaymentPage() {
     const amount = searchParams.get('amount') || "0";
     const [utr, setUtr] = useState("");
 
-    const copyToClipboard = (text: string) => {
+    const copyToClipboard = (e: React.MouseEvent, text: string) => {
+        e.preventDefault(); // Prevent the link from being followed
+        e.stopPropagation(); // Stop the event from bubbling up
         navigator.clipboard.writeText(text).then(() => {
             alert(`Copied: ${text}`);
         });
@@ -77,7 +79,7 @@ export default function PaymentPage() {
                                  <Button variant="outline" className="w-full flex items-center justify-center gap-2 h-12">
                                     <Image src="https://i.ibb.co/YcXW9S3/phonepe-logo.png" alt="PhonePe" width={24} height={24} />
                                     <span>Phonepe</span>
-                                </Button>
+                                 </Button>
                             </a>
                         </div>
                     </CardContent>
@@ -92,18 +94,22 @@ export default function PaymentPage() {
                     <CardContent className="p-4 space-y-4">
                         <div>
                             <p className="font-semibold mb-2">1. Transfer {amount} RS to the following upi</p>
-                            <div className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2">
-                                <span>{UpiId}</span>
-                                <Button size="icon" variant="ghost" onClick={() => copyToClipboard(UpiId)}>
-                                    <ClipboardCopy size={18}/>
-                                </Button>
-                            </div>
-                             <div className="bg-gray-100 p-3 rounded-lg flex justify-between items-center">
-                                <span>{amount} RS</span>
-                                <Button size="icon" variant="ghost" onClick={() => copyToClipboard(amount)}>
-                                    <ClipboardCopy size={18}/>
-                                </Button>
-                            </div>
+                            <a href={upiLink} target="_blank" rel="noopener noreferrer">
+                                <div className="bg-gray-100 p-3 rounded-lg flex justify-between items-center mb-2 cursor-pointer hover:bg-gray-200">
+                                    <span>{UpiId}</span>
+                                    <Button size="icon" variant="ghost" onClick={(e) => copyToClipboard(e, UpiId)}>
+                                        <ClipboardCopy size={18}/>
+                                    </Button>
+                                </div>
+                            </a>
+                             <a href={upiLink} target="_blank" rel="noopener noreferrer">
+                                <div className="bg-gray-100 p-3 rounded-lg flex justify-between items-center cursor-pointer hover:bg-gray-200">
+                                    <span>{amount} RS</span>
+                                    <Button size="icon" variant="ghost" onClick={(e) => copyToClipboard(e, amount)}>
+                                        <ClipboardCopy size={18}/>
+                                    </Button>
+                                </div>
+                             </a>
                         </div>
 
                         <div>
