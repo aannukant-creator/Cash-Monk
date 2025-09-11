@@ -292,7 +292,7 @@ export default function Page() {
           </TabsContent>
           <TabsContent value="distributor">
             <div className="text-center text-gray-500 py-10">
-              <p>No distributor plans yet.</p>
+              <p className="text-lg font-semibold">New VIP plans coming soon</p>
             </div>
           </TabsContent>
         </Tabs>
