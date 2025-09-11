@@ -2,6 +2,8 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ChevronLeft, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 
 export default function RechargePage() {
+  const router = useRouter();
   const [amount, setAmount] = useState("");
   const [selectedChannel, setSelectedChannel] = useState("qepay");
 
@@ -17,12 +20,16 @@ export default function RechargePage() {
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans">
-      <header className="bg-red-600 text-white p-4 flex items-center justify-between">
-        <ChevronLeft size={24} />
-        <h1 className="text-xl font-bold">recharge</h1>
-        <Button variant="ghost" className="text-white hover:bg-red-700 p-2 rounded-md">
-          Record &gt;
-        </Button>
+      <header className="bg-red-600 text-white p-4 flex items-center justify-between relative">
+        <button onClick={() => router.back()} className="absolute left-4">
+          <ChevronLeft size={24} />
+        </button>
+        <h1 className="text-xl font-bold text-center flex-1">recharge</h1>
+        <Link href="/account/recharge-record" className="absolute right-4">
+          <Button variant="ghost" className="text-white hover:bg-red-700 p-2 rounded-md">
+            Record &gt;
+          </Button>
+        </Link>
       </header>
 
       <main className="p-4">
