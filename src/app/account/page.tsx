@@ -22,14 +22,14 @@ export default function AccountPage() {
                 <div className="flex items-center space-x-2">
                     <Gem size={20} className="text-yellow-300" />
                     <span className="font-bold">VIP LEVEL</span>
-                    <span className="bg-gray-500 text-white px-2 py-0.5 rounded text-xs">VIP 1</span>
+                    <span className="bg-gray-500 text-white px-2 py-0.5 rounded text-xs">VIP 0</span>
                 </div>
                 <div className='bg-white/30 rounded-full p-1'>
                     <Shield size={24} className="text-green-300" />
                 </div>
             </div>
           <Progress value={0} className="mt-2 h-2" />
-          <p className="text-xs mt-1">Current progress 0/1,499</p>
+          <p className="text-xs mt-1">Current progress 0/500</p>
         </div>
       </div>
 
@@ -104,9 +104,9 @@ export default function AccountPage() {
           <ListTodo />
           <span className="text-xs">Tasks</span>
         </Link>
-        <button className="flex flex-col items-center">
-          <Headphones />
-          <span className="text-xs">Support</span>
+        <button className="flex flex-col items-center text-xs">
+          <Headphones className="mb-1 h-5 w-5" />
+          <span>Support</span>
         </button>
         <Link href="#" className="flex flex-col items-center">
           <FileText />
