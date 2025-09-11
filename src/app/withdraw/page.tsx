@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, CreditCard, EyeOff } from "lucide-react";
+import { ChevronLeft, CreditCard, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -70,13 +70,14 @@ export default function WithdrawPage() {
                 placeholder="Transaction password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-3 border-gray-200 rounded-md bg-gray-50"
+                className="w-full p-3 pr-10 border-gray-200 rounded-md bg-gray-50"
                 />
                 <button
+                    type="button"
                     onClick={() => setPasswordVisible(!passwordVisible)}
                     className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500"
                 >
-                    <EyeOff size={20} />
+                    {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
             </div>
         </div>

@@ -16,12 +16,15 @@ export default function HomePage() {
   const [balance, setBalance] = useState(0);
   const [productIncome, setProductIncome] = useState(0);
   const [userMobile, setUserMobile] = useState('');
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     // This effect will run on the client side after hydration.
     if (typeof window !== 'undefined') {
         const mobile = localStorage.getItem('userMobile') || '0000000000';
+        const id = localStorage.getItem('userId') || '00000';
         setUserMobile(mobile);
+        setUserId(id);
     }
       
     const updateBalanceAndIncome = () => {
@@ -52,7 +55,7 @@ export default function HomePage() {
           </div>
           <div>
             <h1 className="font-bold text-lg">Cesh Monk</h1>
-            <p className="text-sm">{userMobile} ID: 00000</p>
+            <p className="text-sm">{userMobile} ID: {userId}</p>
           </div>
         </div>
 

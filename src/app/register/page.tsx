@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Gem, Lock, Phone, UserPlus } from "lucide-react";
+import { Gem, Lock, Phone, UserPlus, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +17,9 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [inviteCode, setInviteCode] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
 
   const handleRegister = () => {
     if (!mobile || !password || !confirmPassword) {
@@ -38,9 +41,11 @@ export default function RegisterPage() {
     // In a real app, you would register the user on the backend.
     // Here we'll just simulate a successful registration.
 
-    // Store mobile number in localStorage
+    // Store mobile number and generate a unique ID
     if (typeof window !== 'undefined') {
+      const userId = Math.floor(10000 + Math.random() * 90000).toString();
       localStorage.setItem('userMobile', mobile);
+      localStorage.setItem('userId', userId);
     }
 
     toast({
@@ -81,12 +86,19 @@ export default function RegisterPage() {
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <Input
                         id="password"
-                        type="password"
+                        type={passwordVisible ? "text" : "password"}
                         placeholder="Create a password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 pr-10"
                     />
+                    <button
+                        type="button"
+                        onClick={() => setPasswordVisible(!passwordVisible)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
+                    >
+                        {passwordVisible ? <EyeOff /> : <Eye />}
+                    </button>
                 </div>
             </div>
             <div className="space-y-2">
@@ -95,12 +107,19 @@ export default function RegisterPage() {
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <Input
                         id="confirm-password"
-                        type="password"
+                        type={confirmPasswordVisible ? "text" : "password"}
                         placeholder="Confirm your password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 pr-10"
                     />
+                     <button
+                        type="button"
+                        onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
+                    >
+                        {confirmPasswordVisible ? <EyeOff /> : <Eye />}
+                    </button>
                 </div>
             </div>
              <div className="space-y-2">

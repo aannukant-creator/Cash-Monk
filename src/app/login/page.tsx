@@ -4,7 +4,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Gem, Lock, Phone } from "lucide-react";
+import { Gem, Lock, Phone, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +15,7 @@ export default function LoginPage() {
   const { toast } = useToast();
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleLogin = () => {
     if (!mobile || !password) {
@@ -28,9 +29,15 @@ export default function LoginPage() {
     // In a real app, you'd verify credentials against a backend.
     // Here we'll just simulate a successful login.
     
-    // Store mobile number in localStorage
+    // Store mobile number and a simulated user ID in localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('userMobile', mobile);
+      // For simulation, if user ID doesn't exist, create one.
+      let userId = localStorage.getItem('userId');
+      if (!userId) {
+        userId = Math.floor(10000 + Math.random() * 90000).toString();
+        localStorage.setItem('userId', userId);
+      }
     }
     
     toast({
@@ -71,12 +78,19 @@ export default function LoginPage() {
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <Input
                         id="password"
-                        type="password"
+                        type={passwordVisible ? "text" : "password"}
                         placeholder="Enter your password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="pl-10"
+                        className="pl-10 pr-10"
                     />
+                    <button
+                        type="button"
+                        onClick={() => setPasswordVisible(!passwordVisible)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
+                    >
+                        {passwordVisible ? <EyeOff /> : <Eye />}
+                    </button>
                 </div>
             </div>
 
