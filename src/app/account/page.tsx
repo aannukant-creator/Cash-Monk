@@ -1,0 +1,122 @@
+
+import Link from 'next/link';
+import { Home, ListTodo, FileText, User, Headphones, ChevronRight, Download, Gift, History, Landmark, Wallet, Gem, Shield } from 'lucide-react';
+import { Progress } from "@/components/ui/progress";
+import { Button } from '@/components/ui/button';
+
+export default function AccountPage() {
+  return (
+    <div className="min-h-screen bg-gray-50 font-sans pb-20">
+      <div className="bg-red-600 text-white p-4">
+        <div className="flex items-center space-x-4">
+          <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+            <User size={40} className="text-gray-500" />
+          </div>
+          <div>
+            <h1 className="font-bold text-lg">00000000</h1>
+            <p className="text-sm">000***000 ID: 00000</p>
+          </div>
+        </div>
+        <div className="mt-4 bg-white/20 p-3 rounded-lg">
+            <div className='flex justify-between items-center'>
+                <div className="flex items-center space-x-2">
+                    <Gem size={20} className="text-yellow-300" />
+                    <span className="font-bold">VIP LEVEL</span>
+                    <span className="bg-gray-500 text-white px-2 py-0.5 rounded text-xs">VIP 1</span>
+                </div>
+                <div className='bg-white/30 rounded-full p-1'>
+                    <Shield size={24} className="text-green-300" />
+                </div>
+            </div>
+          <Progress value={0} className="mt-2 h-2" />
+          <p className="text-xs mt-1">Current progress 0/1,499</p>
+        </div>
+      </div>
+
+      <main className="p-4">
+        <div className="bg-white p-4 rounded-lg shadow-sm flex justify-between items-center mb-4">
+          <div>
+            <p className="text-gray-500">Account Balance</p>
+            <p className="font-bold text-2xl">0.00</p>
+          </div>
+          <Button className="bg-red-600 hover:bg-red-700">Recharge &gt;</Button>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4 text-center mb-6">
+          <Link href="/withdraw" className="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center">
+            <Wallet className="text-red-500 mb-2" size={28}/>
+            <span className="font-semibold">Withdrawal</span>
+            <span className="text-xs text-gray-500">0.00</span>
+          </Link>
+          <div className="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center">
+            <Gem className="text-red-500 mb-2" size={28}/>
+            <span className="font-semibold">VIP</span>
+          </div>
+          <Link href="/add-card" className="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center">
+            <Landmark className="text-red-500 mb-2" size={28}/>
+            <span className="font-semibold">Bank Card</span>
+          </Link>
+        </div>
+        
+        <div className="bg-white rounded-lg shadow-sm">
+            <h3 className="font-bold p-4 border-b">Fund entry</h3>
+            <div className="divide-y">
+                <Link href="#" className="flex items-center justify-between p-4 hover:bg-gray-50">
+                    <div className="flex items-center space-x-3">
+                        <Wallet size={20} className="text-red-500" />
+                        <span>Withdraw Record</span>
+                    </div>
+                    <ChevronRight size={20} className="text-gray-400" />
+                </Link>
+                <Link href="#" className="flex items-center justify-between p-4 hover:bg-gray-50">
+                    <div className="flex items-center space-x-3">
+                        <History size={20} className="text-red-500" />
+                        <span>Recharge Record</span>
+                    </div>
+                    <ChevronRight size={20} className="text-gray-400" />
+                </Link>
+                <Link href="#" className="flex items-center justify-between p-4 hover:bg-gray-50">
+                    <div className="flex items-center space-x-3">
+                        <Gift size={20} className="text-red-500" />
+                        <span>Reward Records</span>
+                    </div>
+                    <ChevronRight size={20} className="text-gray-400" />
+                </Link>
+                 <Link href="#" className="flex items-center justify-between p-4 hover:bg-gray-50">
+                    <div className="flex items-center space-x-3">
+                        <Download size={20} className="text-red-500" />
+                        <span>APP download</span>
+                    </div>
+                    <ChevronRight size={20} className="text-gray-400" />
+                </Link>
+            </div>
+        </div>
+
+      </main>
+
+      {/* Bottom Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg flex justify-around items-center text-gray-600 py-2">
+        <Link href="/" className="flex flex-col items-center">
+          <Home />
+          <span className="text-xs">Home</span>
+        </Link>
+        <Link href="/tasks" className="flex flex-col items-center">
+          <ListTodo />
+          <span className="text-xs">Tasks</span>
+        </Link>
+        <button className="flex flex-col items-center">
+          <Headphones />
+          <span className="text-xs">Support</span>
+        </button>
+        <Link href="#" className="flex flex-col items-center">
+          <FileText />
+          <span className="text-xs">Blog</span>
+        </Link>
+        <Link href="/account" className="flex flex-col items-center text-red-600">
+          <User />
+          <span className="text-xs">Account</span>
+        </Link>
+      </div>
+    </div>
+  );
+}

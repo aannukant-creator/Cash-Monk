@@ -93,14 +93,14 @@ export default function TasksPage() {
           <Headphones />
           <span className="text-xs">Support</span>
         </button>
-        <a href="#" className="flex flex-col items-center">
+        <Link href="#" className="flex flex-col items-center">
           <FileText />
           <span className="text-xs">Blog</span>
-        </a>
-        <a href="#" className="flex flex-col items-center">
+        </Link>
+        <Link href="/account" className="flex flex-col items-center">
           <User />
           <span className="text-xs">Account</span>
-        </a>
+        </Link>
       </div>
     </div>
   );
