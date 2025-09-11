@@ -52,10 +52,10 @@ export default function Page() {
             <ClipboardList className="mb-1" />
             <span>Orders</span>
           </Link>
-          <a href="https://t.me/+61Vjwe5dOO84YzM1" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center">
+          <Link href="/telegram" className="flex flex-col items-center">
             <Send className="mb-1" />
             <span>Telegram</span>
-          </a>
+          </Link>
         </div>
       </div>
 
