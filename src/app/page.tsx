@@ -1,7 +1,7 @@
 
 "use client";
 
-import { Home, ListTodo, FileText, User, Wallet, Landmark, Users, ClipboardList, Send, Headphones, Headset, CircleHelp } from "lucide-react";
+import { Home, ListTodo, FileText, User, Wallet, Landmark, Users, ClipboardList, Send, Headphones, Headset, CircleHelp, Gem } from "lucide-react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,7 +13,7 @@ export default function Page() {
       <div className="bg-red-600 text-white">
         <div className="p-4 flex items-center space-x-3">
           <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-             <User className="w-10 h-10 text-gray-500" />
+             <Gem className="w-10 h-10 text-red-500" />
           </div>
           <div>
             <h1 className="font-bold text-lg">Cesh Monk</h1>
@@ -324,5 +324,7 @@ export default function Page() {
     </div>
   );
 }
+
+    
 
     
