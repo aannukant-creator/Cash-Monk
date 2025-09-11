@@ -12,7 +12,8 @@ export default function Home() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsWelcoming(false);
-            router.push('/home');
+            // Redirect to login page instead of home page
+            router.push('/login'); 
         }, 3000); // 3 seconds for the splash screen
 
         return () => clearTimeout(timer);
