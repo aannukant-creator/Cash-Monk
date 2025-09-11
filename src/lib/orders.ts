@@ -16,48 +16,13 @@ export type Order = {
   expectedGain: number;
 };
 
-// Functions for handling user balance
-const getBalanceFromStorage = (): number => {
-    if (typeof window === 'undefined') return 0;
-    const balance = localStorage.getItem('user-balance');
-    return balance ? parseFloat(balance) : 0;
-}
-
-const saveBalanceToStorage = (balance: number) => {
-    if (typeof window === 'undefined') return;
-    localStorage.setItem('user-balance', balance.toString());
-}
-
-export const getBalance = (): number => {
-    const orders = getOrders();
-    const completedOrders = orders.filter(o => o.status === 'completed');
-    const totalGains = completedOrders.reduce((acc, order) => acc + order.expectedGain, 0);
-    const recharges = getRechargeTotal();
-    const investments = orders.reduce((acc, order) => acc + order.totalInvestment, 0);
-    return recharges + totalGains - investments;
-}
-
-export const addRecharge = (amount: number) => {
-    if (typeof window === 'undefined') return;
-    const recharges = JSON.parse(localStorage.getItem('user-recharges') || '[]') as number[];
-    recharges.push(amount);
-    localStorage.setItem('user-recharges', JSON.stringify(recharges));
-}
-
-export const getRechargeTotal = (): number => {
-    if (typeof window === 'undefined') return 0;
-    const recharges = JSON.parse(localStorage.getItem('user-recharges') || '[]') as number[];
-    return recharges.reduce((acc, amount) => acc + amount, 0);
-}
-
-
 // We will use localStorage to persist orders on the client side.
 const getOrdersFromStorage = (): Order[] => {
   if (typeof window === 'undefined') {
     return [];
   }
   try {
-    const ordersJson = localStorage.getItem('user-orders');
+    const ordersJson = localStorage.getItem('user-orders-v2');
     if (ordersJson) {
       const orders = JSON.parse(ordersJson) as Order[];
       // Check status based on completion date
@@ -81,7 +46,7 @@ const saveOrdersToStorage = (orders: Order[]) => {
         return;
     }
     try {
-        localStorage.setItem('user-orders', JSON.stringify(orders));
+        localStorage.setItem('user-orders-v2', JSON.stringify(orders));
     } catch (error) {
         console.error("Failed to save orders to localStorage", error);
     }
@@ -90,8 +55,14 @@ const saveOrdersToStorage = (orders: Order[]) => {
 export const getOrders = (): Order[] => {
     const orders = getOrdersFromStorage();
     // Re-check and save statuses every time we get orders
-    saveOrdersToStorage(orders);
-    return orders;
+    const updatedOrders = orders.map(order => {
+        if (order.status === 'active' && new Date(order.completionDate) <= new Date()) {
+          return { ...order, status: 'completed' };
+        }
+        return order;
+      });
+    saveOrdersToStorage(updatedOrders);
+    return updatedOrders;
 };
 
 export const addOrder = (plan: Plan, quantity: number): { success: boolean, message: string } => {
@@ -121,9 +92,37 @@ export const addOrder = (plan: Plan, quantity: number): { success: boolean, mess
   const newOrders = [...orders, newOrder];
   saveOrdersToStorage(newOrders);
   
-  // No direct balance saving, it's calculated dynamically
-  // const newBalance = currentBalance - investmentCost;
-  // saveBalanceToStorage(newBalance);
-
   return { success: true, message: 'Investment successful!' };
 };
+
+// Functions for handling user balance
+export const getBalance = (): number => {
+    const orders = getOrders();
+    const completedOrders = orders.filter(o => o.status === 'completed');
+    
+    // Calculate total gains from the principal of completed orders
+    const principalFromCompleted = completedOrders.reduce((acc, order) => acc + order.totalInvestment, 0);
+    const gainsFromCompleted = completedOrders.reduce((acc, order) => acc + order.expectedGain, 0);
+    
+    const recharges = getRechargeTotal();
+    
+    // Total spent on all investments (active and completed)
+    const totalInvestments = orders.reduce((acc, order) => acc + order.totalInvestment, 0);
+
+    // Balance is recharges + total gains from completed orders - total investments made.
+    // The principal is effectively returned on completion with the gain.
+    return recharges + principalFromCompleted + gainsFromCompleted - totalInvestments;
+}
+
+export const addRecharge = (amount: number) => {
+    if (typeof window === 'undefined') return;
+    const recharges = JSON.parse(localStorage.getItem('user-recharges-v2') || '[]') as number[];
+    recharges.push(amount);
+    localStorage.setItem('user-recharges-v2', JSON.stringify(recharges));
+}
+
+export const getRechargeTotal = (): number => {
+    if (typeof window === 'undefined') return 0;
+    const recharges = JSON.parse(localStorage.getItem('user-recharges-v2') || '[]') as number[];
+    return recharges.reduce((acc, amount) => acc + amount, 0);
+}
