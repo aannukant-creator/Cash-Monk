@@ -13,10 +13,19 @@ import { Card } from "@/components/ui/card";
 
 export default function RechargePage() {
   const router = useRouter();
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState("500"); // Default to 500 as per payment page example
   const [selectedChannel, setSelectedChannel] = useState("qepay");
 
-  const amounts = [100, 399, 500, 2150, 4500, 10500, 25000, 50000];
+  const amounts = [500, 1000, 2000, 5000, 10000, 25000, 50000];
+
+  const handleRecharge = () => {
+    if (amount) {
+      router.push(`/payment?amount=${amount}`);
+    } else {
+      // Maybe show an alert to the user
+      alert("Please enter or select a recharge amount.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans">
@@ -25,10 +34,8 @@ export default function RechargePage() {
           <ChevronLeft size={24} />
         </button>
         <h1 className="text-xl font-bold text-center flex-1">recharge</h1>
-        <Link href="/account/recharge-record" className="absolute right-4">
-          <Button variant="ghost" className="text-white hover:bg-red-700 p-2 rounded-md">
-            Record &gt;
-          </Button>
+        <Link href="/account/recharge-record" className="absolute right-4 text-sm">
+          Record
         </Link>
       </header>
 
@@ -53,7 +60,7 @@ export default function RechargePage() {
                 className={`bg-red-500 border-none hover:bg-red-400 text-white rounded-lg p-2 text-sm h-auto ${amount === value.toString() ? 'bg-white text-red-600' : ''}`}
                 onClick={() => setAmount(value.toString())}
               >
-                {value}
+                ₹{value}
               </Button>
             ))}
           </div>
@@ -86,10 +93,10 @@ export default function RechargePage() {
         <div className="mt-6 bg-red-50 p-4 rounded-lg text-sm text-red-800">
             <h3 className="font-bold text-red-900 mb-2">Explain</h3>
             <p>1. Please do not modify the deposit amount.</p>
-            <p>Unauthorized modification of the deposit amount will...</p>
+            <p>Unauthorized modification of the deposit amount will result in failure to receive funds.</p>
         </div>
 
-        <Button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold p-6 rounded-lg mt-8 text-lg">
+        <Button onClick={handleRecharge} className="w-full bg-red-600 hover:bg-red-700 text-white font-bold p-6 rounded-lg mt-8 text-lg">
             Recharge Now
         </Button>
 
