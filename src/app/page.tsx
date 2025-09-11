@@ -40,10 +40,10 @@ export default function Page() {
             <Wallet className="mb-1" />
             <span>Recharge</span>
           </Link>
-          <div className="flex flex-col items-center">
+          <Link href="/withdraw" className="flex flex-col items-center">
             <Landmark className="mb-1" />
             <span>Withdraw</span>
-          </div>
+          </Link>
           <div className="flex flex-col items-center">
             <Users className="mb-1" />
             <span>Team</span>
