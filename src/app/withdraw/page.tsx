@@ -24,7 +24,7 @@ export default function WithdrawPage() {
         </button>
         <h1 className="text-xl font-bold text-center flex-1">withdraw</h1>
         <Link href="/account/withdraw-record" className="absolute right-4 text-sm">
-          Record &gt;
+          Record >
         </Link>
       </header>
 
@@ -54,7 +54,7 @@ export default function WithdrawPage() {
             <Input
               id="amount"
               type="number"
-              placeholder="Withdrawal amount 120-100000"
+              placeholder="Withdrawal amount 400-10000"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               className="w-full p-3 border-gray-200 rounded-md bg-gray-50"
@@ -84,9 +84,10 @@ export default function WithdrawPage() {
         <div className="mt-6 bg-red-50 p-4 rounded-lg text-sm text-red-800">
             <h3 className="font-bold text-red-900 mb-2">Explain</h3>
             <ol className="list-decimal list-inside space-y-1">
-                <li>Daily withdrawal time 07:00:00 - 17:00:00</li>
-                <li>Withdrawal of amounts between 120 and 100000</li>
-                <li>For financial settlement purposes, you can only request 1 withdrawal per day</li>
+                <li>Withdrawal available Monday to Friday.</li>
+                <li>Daily withdrawal time 08:00 AM - 04:00 PM</li>
+                <li>Withdrawal of amounts between 400 and 10000</li>
+                <li>You can only request 1 withdrawal per day</li>
             </ol>
         </div>
 
