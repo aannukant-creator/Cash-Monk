@@ -6,16 +6,13 @@ import { Home, ListTodo, FileText, User, Headphones, ChevronRight, Download, Gif
 import { Progress } from "@/components/ui/progress";
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
-import { getOrders, type Order } from '@/lib/orders';
+import { getBalance } from '@/lib/orders';
 
 export default function AccountPage() {
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
-    const orders = getOrders();
-    const completedOrders = orders.filter(o => o.status === 'completed');
-    const totalGains = completedOrders.reduce((acc, order) => acc + order.expectedGain, 0);
-    setBalance(totalGains);
+    setBalance(getBalance());
   }, []);
 
   return (

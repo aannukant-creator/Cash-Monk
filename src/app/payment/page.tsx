@@ -9,6 +9,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle, ChevronLeft, ClipboardCopy } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { addRecharge } from "@/lib/orders";
+import { useToast } from "@/hooks/use-toast";
 
 const UpiId = "apngrou@ptyes";
 const PayeeName = "Cesh Monk"; // You can change this to the actual payee name
@@ -34,6 +36,7 @@ const CountdownTimer = () => {
 
 export default function PaymentPage() {
     const router = useRouter();
+    const { toast } = useToast();
     const searchParams = useSearchParams();
     const amount = searchParams.get('amount') || "0";
     const [utr, setUtr] = useState("");
@@ -42,18 +45,26 @@ export default function PaymentPage() {
         e.preventDefault(); // Prevent the link from being followed
         e.stopPropagation(); // Stop the event from bubbling up
         navigator.clipboard.writeText(text).then(() => {
-            alert(`Copied: ${text}`);
+            toast({ title: "Copied!", description: `Copied: ${text}` });
         });
     };
     
     const handleSubmitUtr = () => {
         if (utr.trim() === "") {
-            alert("Please enter the UTR number.");
+            toast({
+                title: "Error",
+                description: "Please enter the UTR number.",
+                variant: "destructive",
+            });
             return;
         }
         // In a real app, you would verify the UTR with your backend.
-        alert("Your recharge request has been submitted successfully!");
-        router.push('/account/recharge-record');
+        addRecharge(parseFloat(amount));
+        toast({
+          title: "Success",
+          description: "Your recharge request has been submitted successfully!",
+        });
+        router.push('/account');
     };
 
     const upiLink = `upi://pay?pa=${UpiId}&pn=${encodeURIComponent(PayeeName)}&am=${amount}&cu=INR&tn=Recharge`;

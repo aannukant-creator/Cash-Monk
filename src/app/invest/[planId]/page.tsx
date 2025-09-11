@@ -10,12 +10,14 @@ import { Input } from '@/components/ui/input';
 import { ChevronLeft, Minus, Plus } from 'lucide-react';
 import Link from 'next/link';
 import { addOrder } from '@/lib/orders';
+import { useToast } from '@/hooks/use-toast';
 
 export default function InvestPage() {
   const router = useRouter();
   const params = useParams();
   const { planId } = params;
   const plan = plans.find((p) => p.id === planId);
+  const { toast } = useToast();
 
   const [quantity, setQuantity] = useState(1);
 
@@ -37,8 +39,20 @@ export default function InvestPage() {
   };
   
   const handleInvest = () => {
-    addOrder(plan, quantity);
-    router.push('/orders');
+    const result = addOrder(plan, quantity);
+    if (result.success) {
+      toast({
+        title: 'Success',
+        description: result.message,
+      });
+      router.push('/orders');
+    } else {
+      toast({
+        title: 'Error',
+        description: result.message,
+        variant: 'destructive',
+      });
+    }
   };
 
   const payMoney = plan.price * quantity;
