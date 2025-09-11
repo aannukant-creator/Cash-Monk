@@ -28,7 +28,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-gray-100 font-sans pb-20">
       <header className="bg-red-600 text-white p-4 flex items-center relative">
-        <Link href="/" className="absolute left-4">
+        <Link href="/home" className="absolute left-4">
           <ChevronLeft size={24} />
         </Link>
         <h1 className="text-xl font-bold text-center flex-1">Blog</h1>
@@ -56,7 +56,7 @@ export default function BlogPage() {
 
        {/* Bottom Navigation */}
        <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg flex justify-around items-center text-gray-600 py-2">
-        <Link href="/" className="flex flex-col items-center">
+        <Link href="/home" className="flex flex-col items-center">
           <Home />
           <span className="text-xs">Home</span>
         </Link>

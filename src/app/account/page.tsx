@@ -109,7 +109,7 @@ export default function AccountPage() {
 
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg flex justify-around items-center text-gray-600 py-2">
-        <Link href="/" className="flex flex-col items-center">
+        <Link href="/home" className="flex flex-col items-center">
           <Home />
           <span className="text-xs">Home</span>
         </Link>

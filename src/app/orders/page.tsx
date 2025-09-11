@@ -66,7 +66,7 @@ export default function OrdersPage() {
   return (
     <div className="min-h-screen bg-gray-100 font-sans">
       <header className="bg-red-600 text-white p-4 flex items-center relative">
-        <Link href="/" className="absolute left-4">
+        <Link href="/home" className="absolute left-4">
           <ChevronLeft size={24} />
         </Link>
         <h1 className="text-xl font-bold text-center flex-1">My Orders</h1>
