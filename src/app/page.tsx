@@ -71,12 +71,12 @@ export default function Page() {
         </div>
       </div>
       
-      <div className="m-4">
+      <div className="m-4 space-y-4">
         <div className="bg-white rounded-lg shadow-md p-4 relative">
           <div className="absolute top-0 left-0 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-br-lg rounded-tl-lg">VIP 0</div>
           <div className="flex items-center space-x-4">
             <Image 
-              src="https://picsum.photos/seed/kelloggs/200/200" 
+              src="https://picsum.photos/seed/crunchy-nut/200/200" 
               alt="Kellogg's Crunchy Nut" 
               width={100} 
               height={100}
@@ -90,6 +90,32 @@ export default function Page() {
                 <div className="flex justify-between"><span>Days</span> <span className="font-bold text-black">3 Days</span></div>
                 <div className="flex justify-between"><span>Daily Earnings</span> <span className="font-bold text-black">₹ 300</span></div>
                 <div className="flex justify-between"><span>Total Gain</span> <span className="font-bold text-black">₹ 900</span></div>
+              </div>
+            </div>
+          </div>
+           <button className="w-full bg-red-500 hover:bg-red-600 text-white font-bold p-3 rounded-lg mt-4">
+            Invest Now &gt;
+          </button>
+        </div>
+        
+        <div className="bg-white rounded-lg shadow-md p-4 relative">
+          <div className="absolute top-0 left-0 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-br-lg rounded-tl-lg">VIP 0</div>
+          <div className="flex items-center space-x-4">
+            <Image 
+              src="https://picsum.photos/seed/coco-pops/200/200" 
+              alt="Kellogg's Coco Pops" 
+              width={100} 
+              height={100}
+              data-ai-hint="cereal box"
+              className="rounded-lg" 
+            />
+            <div className="flex-1">
+              <h4 className="font-bold text-lg">PLAN-1</h4>
+              <div className="text-sm space-y-1 mt-2 text-gray-600">
+                <div className="flex justify-between"><span>Each Price</span> <span className="font-bold text-black">₹ 100</span></div>
+                <div className="flex justify-between"><span>Days</span> <span className="font-bold text-black">2 Days</span></div>
+                <div className="flex justify-between"><span>Daily Earnings</span> <span className="font-bold text-black">₹ 100</span></div>
+                <div className="flex justify-between"><span>Total Gain</span> <span className="font-bold text-black">₹ 200</span></div>
               </div>
             </div>
           </div>
