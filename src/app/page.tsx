@@ -123,6 +123,85 @@ export default function Page() {
             Invest Now &gt;
           </button>
         </div>
+
+        <div className="bg-white rounded-lg shadow-md p-4 relative">
+          <div className="absolute top-0 left-0 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-br-lg rounded-tl-lg">VIP 0</div>
+          <div className="flex items-center space-x-4">
+            <Image 
+              src="https://picsum.photos/seed/vector/200/200" 
+              alt="Kellogg's Vector" 
+              width={100} 
+              height={100}
+              data-ai-hint="cereal box"
+              className="rounded-lg" 
+            />
+            <div className="flex-1">
+              <h4 className="font-bold text-lg">PLAN-2</h4>
+              <div className="text-sm space-y-1 mt-2 text-gray-600">
+                <div className="flex justify-between"><span>Each Price</span> <span className="font-bold text-black">₹ 799</span></div>
+                <div className="flex justify-between"><span>Days</span> <span className="font-bold text-black">38 Days</span></div>
+                <div className="flex justify-between"><span>Daily Earnings</span> <span className="font-bold text-black">₹ 260</span></div>
+                <div className="flex justify-between"><span>Total Gain</span> <span className="font-bold text-black">₹ 9880</span></div>
+              </div>
+            </div>
+          </div>
+           <button className="w-full bg-red-500 hover:bg-red-600 text-white font-bold p-3 rounded-lg mt-4">
+            Invest Now &gt;
+          </button>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-4 relative">
+          <div className="absolute top-0 left-0 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-br-lg rounded-tl-lg">VIP 0</div>
+          <div className="flex items-center space-x-4">
+            <Image 
+              src="https://picsum.photos/seed/all-bran/200/200" 
+              alt="Kellogg's All-Bran" 
+              width={100} 
+              height={100}
+              data-ai-hint="cereal box"
+              className="rounded-lg" 
+            />
+            <div className="flex-1">
+              <h4 className="font-bold text-lg">PLAN-3</h4>
+              <div className="text-sm space-y-1 mt-2 text-gray-600">
+                <div className="flex justify-between"><span>Each Price</span> <span className="font-bold text-black">₹ 2150</span></div>
+                <div className="flex justify-between"><span>Days</span> <span className="font-bold text-black">38 Days</span></div>
+                <div className="flex justify-between"><span>Daily Earnings</span> <span className="font-bold text-black">₹ 670</span></div>
+                <div className="flex justify-between"><span>Total Gain</span> <span className="font-bold text-black">₹ 25460</span></div>
+              </div>
+            </div>
+          </div>
+           <button className="w-full bg-red-500 hover:bg-red-600 text-white font-bold p-3 rounded-lg mt-4">
+            Invest Now &gt;
+          </button>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-4 relative">
+          <div className="absolute top-0 left-0 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-br-lg rounded-tl-lg">VIP 0</div>
+          <div className="flex items-center space-x-4">
+            <Image 
+              src="https://picsum.photos/seed/corn-flakes/200/200" 
+              alt="Kellogg's Corn Flakes" 
+              width={100} 
+              height={100}
+              data-ai-hint="cereal box"
+              className="rounded-lg" 
+            />
+            <div className="flex-1">
+              <h4 className="font-bold text-lg">PLAN-4</h4>
+              <div className="text-sm space-y-1 mt-2 text-gray-600">
+                <div className="flex justify-between"><span>Each Price</span> <span className="font-bold text-black">₹ 4500</span></div>
+                <div className="flex justify-between"><span>Days</span> <span className="font-bold text-black">38 Days</span></div>
+                <div className="flex justify-between"><span>Daily Earnings</span> <span className="font-bold text-black">₹ 1450</span></div>
+                <div className="flex justify-between"><span>Total Gain</span> <span className="font-bold text-black">₹ 55100</span></div>
+              </div>
+            </div>
+          </div>
+           <button className="w-full bg-red-500 hover:bg-red-600 text-white font-bold p-3 rounded-lg mt-4">
+            Invest Now &gt;
+          </button>
+        </div>
+
       </div>
 
 
