@@ -94,6 +94,7 @@ export default function InvestPage() {
                   variant="outline"
                   onClick={() => handleQuantityChange(quantity - 1)}
                   className="h-8 w-8"
+                  disabled={quantity <= 1}
                 >
                   <Minus size={16} />
                 </Button>
@@ -101,13 +102,21 @@ export default function InvestPage() {
                   type="number"
                   className="w-16 h-8 text-center mx-2"
                   value={quantity}
-                  onChange={(e) => handleQuantityChange(parseInt(e.target.value, 10) || 1)}
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value, 10);
+                    if (!isNaN(value)) {
+                      handleQuantityChange(value);
+                    }
+                  }}
+                  min="1"
+                  max={plan.maxInvestment}
                 />
                 <Button
                   size="icon"
                   variant="outline"
                   onClick={() => handleQuantityChange(quantity + 1)}
                   className="h-8 w-8"
+                  disabled={quantity >= plan.maxInvestment}
                 >
                   <Plus size={16} />
                 </Button>
