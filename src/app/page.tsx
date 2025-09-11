@@ -48,10 +48,10 @@ export default function Page() {
             <Users className="mb-1" />
             <span>Team</span>
           </Link>
-          <div className="flex flex-col items-center">
+          <Link href="/orders" className="flex flex-col items-center">
             <ClipboardList className="mb-1" />
             <span>Orders</span>
-          </div>
+          </Link>
           <div className="flex flex-col items-center">
             <Send className="mb-1" />
             <span>Telegram</span>
