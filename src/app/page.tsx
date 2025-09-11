@@ -155,10 +155,10 @@ export default function Page() {
           <Home />
           <span className="text-xs">Home</span>
         </Link>
-        <a href="#" className="flex flex-col items-center">
+        <Link href="/tasks" className="flex flex-col items-center">
           <ListTodo />
           <span className="text-xs">Tasks</span>
-        </a>
+        </Link>
         <button className="bg-red-600 text-white rounded-full p-4 -mt-8 shadow-lg">
           <Headphones size={28} />
         </button>
