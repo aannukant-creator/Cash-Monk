@@ -88,6 +88,7 @@ export default function WithdrawPage() {
                 <li>Daily withdrawal time 08:00 AM - 04:00 PM</li>
                 <li>Withdrawal of amounts between 400 and 10000</li>
                 <li>You can only request 1 withdrawal per day</li>
+                <li>The withdrawn amount will be sent to your account within 2 to 24 hours.</li>
             </ol>
         </div>
 
