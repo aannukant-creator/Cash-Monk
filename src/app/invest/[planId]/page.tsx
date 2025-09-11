@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ChevronLeft, Minus, Plus } from 'lucide-react';
 import Link from 'next/link';
+import { addOrder } from '@/lib/orders';
 
 export default function InvestPage() {
   const router = useRouter();
@@ -33,6 +34,11 @@ export default function InvestPage() {
     if (newQuantity >= 1 && newQuantity <= plan.maxInvestment) {
       setQuantity(newQuantity);
     }
+  };
+  
+  const handleInvest = () => {
+    addOrder(plan, quantity);
+    router.push('/orders');
   };
 
   const payMoney = plan.price * quantity;
@@ -134,7 +140,7 @@ export default function InvestPage() {
         </div>
       </main>
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
-        <Button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold p-6 rounded-lg text-lg">
+        <Button onClick={handleInvest} className="w-full bg-red-600 hover:bg-red-700 text-white font-bold p-6 rounded-lg text-lg">
           Invest Now
         </Button>
       </div>
