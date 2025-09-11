@@ -27,6 +27,12 @@ export default function LoginPage() {
     }
     // In a real app, you'd verify credentials against a backend.
     // Here we'll just simulate a successful login.
+    
+    // Store mobile number in localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('userMobile', mobile);
+    }
+    
     toast({
       title: "Login Successful",
       description: "Welcome back!",

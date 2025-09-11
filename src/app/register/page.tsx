@@ -37,6 +37,12 @@ export default function RegisterPage() {
     }
     // In a real app, you would register the user on the backend.
     // Here we'll just simulate a successful registration.
+
+    // Store mobile number in localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('userMobile', mobile);
+    }
+
     toast({
       title: "Registration Successful",
       description: "Your account has been created.",

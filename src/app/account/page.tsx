@@ -10,11 +10,23 @@ import { getBalance } from '@/lib/orders';
 
 export default function AccountPage() {
   const [balance, setBalance] = useState(0);
+  const [userMobile, setUserMobile] = useState('');
 
   useEffect(() => {
     // This will run on the client side after hydration.
+    if (typeof window !== 'undefined') {
+        const mobile = localStorage.getItem('userMobile') || '00000000';
+        setUserMobile(mobile);
+    }
     setBalance(getBalance());
   }, []);
+
+  const formatMobile = (mobile: string) => {
+    if (mobile.length > 6) {
+        return `${mobile.substring(0,3)}***${mobile.substring(mobile.length - 3)}`;
+    }
+    return mobile;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans pb-20">
@@ -24,8 +36,8 @@ export default function AccountPage() {
             <User size={40} className="text-gray-500" />
           </div>
           <div>
-            <h1 className="font-bold text-lg">00000000</h1>
-            <p className="text-sm">000***000 ID: 00000</p>
+            <h1 className="font-bold text-lg">{userMobile}</h1>
+            <p className="text-sm">{formatMobile(userMobile)} ID: 00000</p>
           </div>
         </div>
         <div className="mt-4 bg-white/20 p-3 rounded-lg">
