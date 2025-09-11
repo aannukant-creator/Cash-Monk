@@ -75,7 +75,7 @@ export default function AccountPage() {
                     </div>
                     <ChevronRight size={20} className="text-gray-400" />
                 </Link>
-                <Link href="#" className="flex items-center justify-between p-4 hover:bg-gray-50">
+                <Link href="/account/rewards" className="flex items-center justify-between p-4 hover:bg-gray-50">
                     <div className="flex items-center space-x-3">
                         <Gift size={20} className="text-red-500" />
                         <span>Reward Records</span>
