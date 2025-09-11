@@ -44,10 +44,10 @@ export default function Page() {
             <Landmark className="mb-1" />
             <span>Withdraw</span>
           </Link>
-          <div className="flex flex-col items-center">
+          <Link href="/team" className="flex flex-col items-center">
             <Users className="mb-1" />
             <span>Team</span>
-          </div>
+          </Link>
           <div className="flex flex-col items-center">
             <ClipboardList className="mb-1" />
             <span>Orders</span>
