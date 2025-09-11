@@ -185,10 +185,10 @@ export default function Page() {
           <ListTodo />
           <span className="text-xs">Tasks</span>
         </Link>
-        <button className="flex flex-col items-center">
+        <Link href="/support" className="flex flex-col items-center">
           <Headphones />
            <span className="text-xs">Support</span>
-        </button>
+        </Link>
         <Link href="/blog" className="flex flex-col items-center">
           <FileText />
           <span className="text-xs">Blog</span>

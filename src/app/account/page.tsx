@@ -50,7 +50,9 @@ export default function AccountPage() {
             <p className="text-gray-500">Account Balance</p>
             <p className="font-bold text-2xl">₹{balance.toFixed(2)}</p>
           </div>
-          <Button className="bg-red-600 hover:bg-red-700">Recharge &gt;</Button>
+          <Link href="/recharge">
+            <Button className="bg-red-600 hover:bg-red-700">Recharge &gt;</Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-3 gap-4 text-center mb-6">
@@ -59,10 +61,10 @@ export default function AccountPage() {
             <span className="font-semibold">Withdrawal</span>
             <span className="text-xs text-gray-500">₹{balance.toFixed(2)}</span>
           </Link>
-          <div className="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center">
+          <Link href="/vip" className="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center">
             <Gem className="text-red-500 mb-2" size={28}/>
             <span className="font-semibold">VIP</span>
-          </div>
+          </Link>
           <Link href="/add-card" className="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center">
             <Landmark className="text-red-500 mb-2" size={28}/>
             <span className="font-semibold">Bank Card</span>
@@ -93,7 +95,7 @@ export default function AccountPage() {
                     </div>
                     <ChevronRight size={20} className="text-gray-400" />
                 </Link>
-                 <Link href="#" className="flex items-center justify-between p-4 hover:bg-gray-50">
+                 <Link href="/app-download" className="flex items-center justify-between p-4 hover:bg-gray-50">
                     <div className="flex items-center space-x-3">
                         <Download size={20} className="text-red-500" />
                         <span>APP download</span>
@@ -115,10 +117,10 @@ export default function AccountPage() {
           <ListTodo />
           <span className="text-xs">Tasks</span>
         </Link>
-        <button className="flex flex-col items-center text-xs">
+        <Link href="/support" className="flex flex-col items-center text-xs">
           <Headphones className="mb-1 h-5 w-5" />
           <span>Support</span>
-        </button>
+        </Link>
         <Link href="/blog" className="flex flex-col items-center">
           <FileText />
           <span className="text-xs">Blog</span>
