@@ -9,26 +9,43 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
 
 export default function AddCardPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [accountHolderName, setAccountHolderName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [ifscCode, setIfscCode] = useState("");
   const [transactionPassword, setTransactionPassword] = useState("");
 
   const handleSave = () => {
-    // For now, this just navigates back.
+    // Basic validation
+    if (!accountHolderName || !accountNumber || !ifscCode || !transactionPassword) {
+       toast({
+        title: "Error",
+        description: "Please fill all the fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     // In a real app, you would save this data to a backend.
+    // For now, we just show a success message and navigate back.
+    toast({
+      title: "Success",
+      description: "Bank card added successfully.",
+    });
+
     router.push("/withdraw");
   };
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans">
       <header className="bg-red-600 text-white p-4 flex items-center relative">
-        <Link href="/withdraw" className="absolute left-4">
+        <button onClick={() => router.back()} className="absolute left-4">
           <ChevronLeft size={24} />
-        </Link>
+        </button>
         <h1 className="text-xl font-bold text-center flex-1">Add Bank Card</h1>
       </header>
 

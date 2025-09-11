@@ -6,9 +6,28 @@ import { ChevronLeft, Link as LinkIcon, QrCode } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useToast } from "@/hooks/use-toast";
 
 export default function TeamPage() {
+  const { toast } = useToast();
   const inviteCode = "CESHMONK123";
+  const inviteLink = `https://app.example.com/register?invite=${inviteCode}`; // Replace with your actual domain
+
+  const copyToClipboard = (text: string, message: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      toast({
+        title: "Success",
+        description: message,
+      });
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+       toast({
+        title: "Error",
+        description: "Failed to copy to clipboard.",
+        variant: "destructive",
+      });
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans">
@@ -39,10 +58,10 @@ export default function TeamPage() {
                 <p className="font-bold text-xl">{inviteCode}</p>
               </div>
               <div className="flex gap-2">
-                <Button size="icon" variant="outline" className="bg-green-500 hover:bg-green-600 text-white">
+                <Button size="icon" variant="outline" className="bg-green-500 hover:bg-green-600 text-white" onClick={() => copyToClipboard(inviteLink, "Invite link copied!")}>
                   <LinkIcon size={20} />
                 </Button>
-                <Button size="icon" variant="outline" className="bg-yellow-500 hover:bg-yellow-600 text-white">
+                <Button size="icon" variant="outline" className="bg-yellow-500 hover:bg-yellow-600 text-white" onClick={() => alert("QR Code functionality coming soon!")}>
                   <QrCode size={20} />
                 </Button>
               </div>

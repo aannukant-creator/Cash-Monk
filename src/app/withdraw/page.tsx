@@ -7,8 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 
 export default function WithdrawPage() {
+  const router = useRouter();
   const [amount, setAmount] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -16,13 +19,13 @@ export default function WithdrawPage() {
   return (
     <div className="min-h-screen bg-gray-100 font-sans">
       <header className="bg-red-600 text-white p-4 flex items-center justify-between relative">
-        <Link href="/" className="absolute left-4">
+        <button onClick={() => router.back()} className="absolute left-4">
             <ChevronLeft size={24} />
-        </Link>
+        </button>
         <h1 className="text-xl font-bold text-center flex-1">withdraw</h1>
-        <Button variant="ghost" className="text-white hover:bg-red-700 p-2 rounded-md absolute right-4">
+        <Link href="/account/withdraw-record" className="absolute right-4 text-sm">
           Record &gt;
-        </Button>
+        </Link>
       </header>
 
       <main className="p-4">
