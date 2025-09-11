@@ -1,10 +1,23 @@
 
+'use client';
+
 import Link from 'next/link';
 import { Home, ListTodo, FileText, User, Headphones, ChevronRight, Download, Gift, History, Landmark, Wallet, Gem, Shield } from 'lucide-react';
 import { Progress } from "@/components/ui/progress";
 import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
+import { getOrders, type Order } from '@/lib/orders';
 
 export default function AccountPage() {
+  const [balance, setBalance] = useState(0);
+
+  useEffect(() => {
+    const orders = getOrders();
+    const completedOrders = orders.filter(o => o.status === 'completed');
+    const totalGains = completedOrders.reduce((acc, order) => acc + order.expectedGain, 0);
+    setBalance(totalGains);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans pb-20">
       <div className="bg-red-600 text-white p-4">
@@ -37,7 +50,7 @@ export default function AccountPage() {
         <div className="bg-white p-4 rounded-lg shadow-sm flex justify-between items-center mb-4">
           <div>
             <p className="text-gray-500">Account Balance</p>
-            <p className="font-bold text-2xl">0.00</p>
+            <p className="font-bold text-2xl">₹{balance.toFixed(2)}</p>
           </div>
           <Button className="bg-red-600 hover:bg-red-700">Recharge &gt;</Button>
         </div>
@@ -46,7 +59,7 @@ export default function AccountPage() {
           <Link href="/withdraw" className="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center">
             <Wallet className="text-red-500 mb-2" size={28}/>
             <span className="font-semibold">Withdrawal</span>
-            <span className="text-xs text-gray-500">0.00</span>
+            <span className="text-xs text-gray-500">₹{balance.toFixed(2)}</span>
           </Link>
           <div className="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center justify-center">
             <Gem className="text-red-500 mb-2" size={28}/>

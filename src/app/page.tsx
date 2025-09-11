@@ -6,10 +6,38 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { plans } from "@/lib/plans";
+import { useEffect, useState } from "react";
+import { getOrders } from "@/lib/orders";
 
 export default function Page() {
   const manufacturerPlans = plans.filter(p => p.category === 'manufacturer');
   const retailerPlans = plans.filter(p => p.category === 'retailer');
+
+  const [balance, setBalance] = useState(0);
+  const [productIncome, setProductIncome] = useState(0);
+
+  useEffect(() => {
+    const orders = getOrders();
+    const activeOrders = orders.filter(o => o.status === 'active');
+    const completedOrders = orders.filter(o => o.status === 'completed');
+    
+    const now = new Date();
+    const currentDayIncome = activeOrders.reduce((acc, order) => {
+        const purchaseDate = new Date(order.purchaseDate);
+        const daysDiff = Math.floor((now.getTime() - purchaseDate.getTime()) / (1000 * 3600 * 24));
+        if (daysDiff > 0) {
+             // For simplicity, let's just count daily income for active orders.
+             // A more complex calculation could be done here.
+        }
+        return acc + order.plan.dailyIncome; // Simple daily income sum for active plans
+    }, 0);
+
+    const totalGains = completedOrders.reduce((acc, order) => acc + order.expectedGain, 0);
+
+    setBalance(totalGains); // Balance is total gains from completed orders
+    setProductIncome(currentDayIncome); // Product income is today's potential income from active orders
+
+  }, []);
 
   return (
     <div className="bg-gray-100 min-h-screen font-sans pb-20">
@@ -27,12 +55,12 @@ export default function Page() {
         <div className="flex justify-around p-4">
           <div className="text-center">
             <p className="text-sm">Your Balance</p>
-            <p className="font-bold text-xl">₹ 0.00</p>
+            <p className="font-bold text-xl">₹ {balance.toFixed(2)}</p>
           </div>
           <div className="text-center">
             <p className="text-sm">Product Income</p>
             <div className="flex items-center space-x-2">
-                <p className="font-bold text-xl">₹ 0.00</p>
+                <p className="font-bold text-xl">₹ {productIncome.toFixed(2)}</p>
                 <div className="flex space-x-1">
                     <CircleHelp size={20} className="text-white"/>
                     <div className="relative">
