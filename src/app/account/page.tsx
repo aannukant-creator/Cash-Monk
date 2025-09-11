@@ -61,14 +61,14 @@ export default function AccountPage() {
         <div className="bg-white rounded-lg shadow-sm">
             <h3 className="font-bold p-4 border-b">Fund entry</h3>
             <div className="divide-y">
-                <Link href="#" className="flex items-center justify-between p-4 hover:bg-gray-50">
+                <Link href="/account/withdraw-record" className="flex items-center justify-between p-4 hover:bg-gray-50">
                     <div className="flex items-center space-x-3">
                         <Wallet size={20} className="text-red-500" />
                         <span>Withdraw Record</span>
                     </div>
                     <ChevronRight size={20} className="text-gray-400" />
                 </Link>
-                <Link href="#" className="flex items-center justify-between p-4 hover:bg-gray-50">
+                <Link href="/account/recharge-record" className="flex items-center justify-between p-4 hover:bg-gray-50">
                     <div className="flex items-center space-x-3">
                         <History size={20} className="text-red-500" />
                         <span>Recharge Record</span>
