@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,7 +34,7 @@ const CountdownTimer = () => {
     return <div className="text-2xl font-mono">00:{minutes}:{seconds}</div>;
 }
 
-export default function PaymentPage() {
+function PaymentPageComponent() {
     const router = useRouter();
     const { toast } = useToast();
     const searchParams = useSearchParams();
@@ -149,4 +149,12 @@ export default function PaymentPage() {
             </main>
         </div>
     )
+}
+
+export default function PaymentPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <PaymentPageComponent />
+        </Suspense>
+    );
 }
