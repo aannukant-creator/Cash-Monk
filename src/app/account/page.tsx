@@ -21,8 +21,8 @@ export default function AccountPage() {
         const id = localStorage.getItem('userId') || '00000';
         setUserMobile(mobile);
         setUserId(id);
+        setBalance(getBalance());
     }
-    setBalance(getBalance());
   }, []);
 
   const formatMobile = (mobile: string) => {
