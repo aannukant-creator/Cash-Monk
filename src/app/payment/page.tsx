@@ -92,13 +92,13 @@ function PaymentPageComponent() {
                         <div className="grid grid-cols-2 gap-4">
                             <a href={upiLink} target="_blank" rel="noopener noreferrer">
                                 <Button variant="outline" className="w-full flex items-center justify-center gap-2 h-12 border-purple-600 border-2">
-                                    <Image src="https://i.ibb.co/bF0W1S1/paytm-logo.png" alt="Paytm" width={24} height={24} />
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path fill="#00baf2" d="M128 256a128 128 0 1 0 0-256a128 128 0 0 0 0 256Z"/><path fill="#002970" d="m165.7 63.3l-25 61.2h-35l-24.8-61.2H44.2v129.3h28.6V88.8l23.5 59.2h22.8l23.3-59.2v105.1h28.6V63.3z"/><path fill="#fff" d="m194.3 63.3l-25 61.2h-35l-24.8-61.2H72.8v129.3h28.6V88.8l23.5 59.2h22.8l23.3-59.2v105.1h28.6V63.3z"/></svg>
                                     <span>Paytm</span>
                                 </Button>
                             </a>
                             <a href={upiLink} target="_blank" rel="noopener noreferrer">
                                  <Button variant="outline" className="w-full flex items-center justify-center gap-2 h-12">
-                                    <Image src="https://i.ibb.co/YcXW9S3/phonepe-logo.png" alt="PhonePe" width={24} height={24} />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#6739B7" d="M19.09,7.63a2,2,0,0,0-1.7-1.09,3.2,3.2,0,0,0-2.31.78,3.53,3.53,0,0,0-1.89-2,3.29,3.29,0,0,0-3.41,1,3.31,3.31,0,0,0-1.68,3.52,3.28,3.28,0,0,0,1.21,2.44,3.33,3.33,0,0,0,2,.81H12v.1a3.29,3.29,0,0,0-1.07-2.34,3.24,3.24,0,0,0-4.34-.14,3.33,3.33,0,0,0-1.42,2.83A3.28,3.28,0,0,0,7.65,18.8a3.32,3.32,0,0,0,2.6,1.06,3.26,3.26,0,0,0,2-2.73h.14a3.3,3.3,0,0,0,2.48,2.7,3.26,3.26,0,0,0,3.75-2.2,3.34,3.34,0,0,0-.46-3.23,3.31,3.31,0,0,0-2.61-1.39H15V13a3.32,3.32,0,0,0,1.07,2.33,3.27,3.27,0,0,0,4.4.15,3.33,3.33,0,0,0,1.42-2.85,3.29,3.29,0,0,0-2.8-3Z"/></svg>
                                     <span>Phonepe</span>
                                  </Button>
                             </a>
