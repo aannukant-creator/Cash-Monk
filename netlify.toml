@@ -4,13 +4,3 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-
-[functions]
-  # Use esbuild for serverless functions
-  node_bundler = "esbuild"
-
-  # Disable all edge functions by excluding everything
-  included_files = ["!**/*"]
-
-  # No external node modules needed
-  external_node_modules = []
