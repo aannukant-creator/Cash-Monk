@@ -1,21 +1,20 @@
-
 'use client';
 
 import Link from 'next/link';
-import { Home, ListTodo, FileText, User, Headphones, ChevronRight, Download, Gift, History, Landmark, Wallet, Gem, Shield } from 'lucide-react';
+import { Home, ListTodo, FileText, User, Headphones, ChevronRight, Download, Gift, History, Landmark, Wallet, Gem, Shield, LogOut } from 'lucide-react';
 import { Progress } from "@/components/ui/progress";
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import { getBalance } from '@/lib/orders';
+import { useRouter } from 'next/navigation';
 
 export default function AccountPage() {
   const [balance, setBalance] = useState(0);
   const [userMobile, setUserMobile] = useState('');
   const [userId, setUserId] = useState('');
-
+  const router = useRouter();
 
   useEffect(() => {
-    // This will run on the client side after hydration.
     if (typeof window !== 'undefined') {
         const mobile = localStorage.getItem('userMobile') || '0000000000';
         const id = localStorage.getItem('userId') || '00000';
@@ -31,6 +30,14 @@ export default function AccountPage() {
     }
     return mobile;
   }
+
+  const handleLogout = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('userMobile');
+      localStorage.removeItem('userId');
+      router.push('/login');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans pb-20">
@@ -118,12 +125,18 @@ export default function AccountPage() {
                     </div>
                     <ChevronRight size={20} className="text-gray-400" />
                 </Link>
+                <button onClick={handleLogout} className="w-full flex items-center justify-between p-4 hover:bg-gray-50 text-left">
+                    <div className="flex items-center space-x-3">
+                        <LogOut size={20} className="text-red-500" />
+                        <span>Logout</span>
+                    </div>
+                    <ChevronRight size={20} className="text-gray-400" />
+                </button>
             </div>
         </div>
 
       </main>
 
-      {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg flex justify-around items-center text-gray-600 py-2">
         <Link href="/home" className="flex flex-col items-center">
           <Home />
