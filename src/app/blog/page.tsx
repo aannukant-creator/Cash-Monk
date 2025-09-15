@@ -1,26 +1,23 @@
-
 import Link from 'next/link';
 import { ChevronLeft, Home, ListTodo, Headphones, FileText, User } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 const blogPosts = [
   {
     id: 1,
     title: 'Welcome to Cesh Monk!',
-    date: '2024-07-29',
-    excerpt: 'Find out more about our investment platform and how to get started on your journey to financial growth.',
+    excerpt: 'Welcome to Cesh Monk, your trusted partner for financial growth! Our platform is designed to make earning money simple and accessible. Explore our unique investment opportunities and start your journey towards significant daily returns today.',
   },
   {
     id: 2,
     title: 'Understanding Our Investment Plans',
-    date: '2024-07-28',
-    excerpt: 'A deep dive into the Manufacturer, Retailer, and Distributor plans. Learn which one is right for you.',
+    excerpt: "Choosing the right plan is key to your success. This guide provides a deep dive into our 'Manufacturer' and 'Retailer' plans. Learn how each plan works, its potential returns, and how you can choose the best option to start earning money right away.",
   },
   {
     id: 3,
     title: 'How to Maximize Your Earnings',
-    date: '2024-07-27',
-    excerpt: 'Tips and tricks on how to make the most of our platform, from daily earnings to team-building rewards.',
+    excerpt: 'Ready to boost your income? This post shares powerful tips and tricks to maximize your earnings on Cesh Monk. From daily income to team-building rewards, we\'ll show you the strategies you need to unlock your earning potential.',
   },
 ];
 
@@ -39,13 +36,9 @@ export default function BlogPage() {
           <Card key={post.id}>
             <CardHeader>
               <CardTitle>{post.title}</CardTitle>
-              <p className="text-xs text-gray-500 pt-1">{post.date}</p>
             </CardHeader>
             <CardContent>
               <p className="text-gray-700">{post.excerpt}</p>
-              <Link href="#" className="text-red-600 font-semibold mt-2 inline-block">
-                Read More &gt;
-              </Link>
             </CardContent>
           </Card>
         ))}
@@ -64,10 +57,10 @@ export default function BlogPage() {
           <ListTodo />
           <span className="text-xs">Tasks</span>
         </Link>
-        <button className="flex flex-col items-center">
+        <Link href="/support" className="flex flex-col items-center">
           <Headphones />
           <span className="text-xs">Support</span>
-        </button>
+        </Link>
         <Link href="/blog" className="flex flex-col items-center text-red-600">
           <FileText />
           <span className="text-xs">Blog</span>
