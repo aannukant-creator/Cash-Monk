@@ -11,17 +11,21 @@ import Link from "next/link";
 import { addRecharge } from "@/lib/orders";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getAuth } from "firebase/auth";
+import { app } from "@/lib/firebase";
 
 const UpiId = "apngrou@ptyes";
 
 const CountdownTimer = () => {
-    const [timeLeft, setTimeLeft] = useState(10 * 60);
+    const [timeLeft, setTimeLeft] = useState(10 * 60); // 10 minutes in seconds
 
     useEffect(() => {
         if (timeLeft === 0) return;
+
         const intervalId = setInterval(() => {
             setTimeLeft(timeLeft - 1);
         }, 1000);
+
         return () => clearInterval(intervalId);
     }, [timeLeft]);
 
@@ -35,18 +39,20 @@ function PaymentPageComponent() {
     const router = useRouter();
     const { toast } = useToast();
     const searchParams = useSearchParams();
+    const auth = getAuth(app);
+
     const amount = searchParams.get('amount') || "0";
     const [utr, setUtr] = useState("");
 
     const copyToClipboard = (e: React.MouseEvent, text: string) => {
-        e.preventDefault();
-        e.stopPropagation();
+        e.preventDefault(); 
+        e.stopPropagation(); 
         navigator.clipboard.writeText(text).then(() => {
             toast({ title: "Copied!", description: `Copied: ${text}` });
         });
     };
-
-    const handleSubmitUtr = () => {
+    
+    const handleSubmitUtr = async () => {
         if (utr.trim() === "") {
             toast({
                 title: "Error",
@@ -55,7 +61,18 @@ function PaymentPageComponent() {
             });
             return;
         }
-        addRecharge(parseFloat(amount));
+
+        const user = auth.currentUser;
+        if (!user) {
+            toast({
+                title: "Error",
+                description: "You must be logged in.",
+                variant: "destructive",
+            });
+            return;
+        }
+        
+        await addRecharge(user.uid, parseFloat(amount), utr);
         toast({
           title: "Success",
           description: "Your recharge request has been submitted successfully!",

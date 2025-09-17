@@ -7,22 +7,44 @@ import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import { getBalance } from '@/lib/orders';
 import { useRouter } from 'next/navigation';
+import { getAuth } from 'firebase/auth';
+import { app } from '@/lib/firebase';
 
 export default function AccountPage() {
   const [balance, setBalance] = useState(0);
   const [userMobile, setUserMobile] = useState('');
   const [userId, setUserId] = useState('');
   const router = useRouter();
+  const auth = getAuth(app);
+
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-        const mobile = localStorage.getItem('userMobile') || '0000000000';
-        const id = localStorage.getItem('userId') || '00000';
-        setUserMobile(mobile);
-        setUserId(id);
-        setBalance(getBalance());
-    }
-  }, []);
+    const fetchUserData = async () => {
+        if (typeof window !== 'undefined') {
+            const mobile = localStorage.getItem('userMobile') || '0000000000';
+            const id = localStorage.getItem('userId') || '00000';
+            setUserMobile(mobile);
+            setUserId(id);
+            
+            if (auth.currentUser) {
+                const newBalance = await getBalance(auth.currentUser.uid);
+                setBalance(newBalance);
+            }
+        }
+    };
+    
+    fetchUserData();
+    
+    const unsubscribe = auth.onAuthStateChanged(user => {
+        if (user) {
+            fetchUserData();
+        } else {
+            router.push('/login');
+        }
+    });
+
+    return () => unsubscribe();
+  }, [auth, router]);
 
   const formatMobile = (mobile: string) => {
     if (mobile.length > 6) {
@@ -33,9 +55,11 @@ export default function AccountPage() {
 
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('userMobile');
-      localStorage.removeItem('userId');
-      router.push('/login');
+      auth.signOut().then(() => {
+        localStorage.removeItem('userMobile');
+        localStorage.removeItem('userId');
+        router.push('/login');
+      });
     }
   };
 
@@ -137,6 +161,7 @@ export default function AccountPage() {
 
       </main>
 
+      {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg flex justify-around items-center text-gray-600 py-2">
         <Link href="/home" className="flex flex-col items-center">
           <Home />

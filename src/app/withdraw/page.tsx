@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -8,13 +7,51 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import { addWithdrawal } from "@/lib/orders";
+import { getAuth } from "firebase/auth";
+import { app } from "@/lib/firebase";
 
 
 export default function WithdrawPage() {
   const router = useRouter();
+  const { toast } = useToast();
+  const auth = getAuth(app);
   const [amount, setAmount] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isApplying, setIsApplying] = useState(false);
+
+  const handleApplyWithdrawal = async () => {
+    const user = auth.currentUser;
+    if (!user) {
+        toast({ title: "Error", description: "You must be logged in.", variant: "destructive" });
+        return;
+    }
+
+    const numAmount = parseFloat(amount);
+    if (isNaN(numAmount) || numAmount < 400 || numAmount > 10000) {
+        toast({ title: "Error", description: "Please enter a valid amount between 400 and 10000.", variant: "destructive" });
+        return;
+    }
+    if (!password) {
+        toast({ title: "Error", description: "Please enter your transaction password.", variant: "destructive" });
+        return;
+    }
+
+    setIsApplying(true);
+    // In a real app, you should verify the transaction password on the backend.
+    // For now, we'll assume it's correct and proceed.
+    const result = await addWithdrawal(user.uid, numAmount, password);
+
+    if (result.success) {
+        toast({ title: "Success", description: result.message });
+        router.push('/account/withdraw-record');
+    } else {
+        toast({ title: "Error", description: result.message, variant: "destructive" });
+    }
+    setIsApplying(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans">
@@ -24,7 +61,7 @@ export default function WithdrawPage() {
         </button>
         <h1 className="text-xl font-bold text-center flex-1">withdraw</h1>
         <Link href="/account/withdraw-record" className="absolute right-4 text-sm">
-          Record >
+          Record &gt;
         </Link>
       </header>
 
@@ -93,8 +130,8 @@ export default function WithdrawPage() {
             </ol>
         </div>
 
-        <Button className="w-full bg-red-600 hover:bg-red-700 text-white font-bold p-6 rounded-lg mt-8 text-lg">
-            Apply Withdrawal
+        <Button onClick={handleApplyWithdrawal} className="w-full bg-red-600 hover:bg-red-700 text-white font-bold p-6 rounded-lg mt-8 text-lg" disabled={isApplying}>
+            {isApplying ? 'Processing...' : 'Apply Withdrawal'}
         </Button>
       </main>
     </div>

@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from "next/link";
@@ -8,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState } from "react";
 import { getOrders, type Order } from "@/lib/orders";
 import Image from "next/image";
+import { getAuth } from "firebase/auth";
+import { app } from "@/lib/firebase";
 
 const OrderList = ({ orders }: { orders: Order[] }) => {
   if (orders.length === 0) {
@@ -54,11 +55,17 @@ const OrderList = ({ orders }: { orders: Order[] }) => {
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
+  const auth = getAuth(app);
 
   useEffect(() => {
-    // Fetch orders from localStorage on the client side
-    setOrders(getOrders());
-  }, []);
+    const unsubscribe = auth.onAuthStateChanged(user => {
+        if (user) {
+            getOrders(user.uid).then(setOrders);
+        }
+    });
+    
+    return () => unsubscribe();
+  }, [auth]);
 
   const activeOrders = orders.filter((o) => o.status === 'active');
   const completedOrders = orders.filter((o) => o.status === 'completed');

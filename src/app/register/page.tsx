@@ -9,7 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { app } from "@/lib/firebase";
+import { doc, setDoc } from "firebase/firestore"; 
+import { app, db } from "@/lib/firebase";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -21,7 +22,6 @@ export default function RegisterPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
 
   const handleRegister = async () => {
     if (!mobile || !password || !confirmPassword) {
@@ -51,24 +51,28 @@ export default function RegisterPage() {
 
     setIsLoading(true);
     const auth = getAuth(app);
-    // Firebase Auth uses email, so we'll create a dummy email from the mobile number.
     const email = `${mobile}@cashmonk.app`;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // We can store the mobile number in the user's profile
       await updateProfile(user, { displayName: mobile });
       
-      // Store mobile number and a simulated user ID in localStorage
+      const userId = Math.floor(10000 + Math.random() * 90000).toString();
+      
+      // Create a document for the new user in Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        mobile: mobile,
+        userId: userId,
+        createdAt: new Date().toISOString(),
+        inviteCode: inviteCode,
+      });
+
+      // Store mobile number and a simulated user ID in localStorage for client-side access
       if (typeof window !== 'undefined') {
-        const userId = Math.floor(10000 + Math.random() * 90000).toString();
         localStorage.setItem('userMobile', mobile);
         localStorage.setItem('userId', userId);
-        // Initialize balance and orders for new user
-        localStorage.setItem('user-recharges-v2', '[]');
-        localStorage.setItem('user-orders-v2', '[]');
       }
 
       toast({

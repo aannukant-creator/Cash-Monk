@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -11,6 +10,8 @@ import { ChevronLeft, Minus, Plus } from 'lucide-react';
 import Link from 'next/link';
 import { addOrder } from '@/lib/orders';
 import { useToast } from '@/hooks/use-toast';
+import { getAuth } from 'firebase/auth';
+import { app } from '@/lib/firebase';
 
 export default function InvestPage() {
   const router = useRouter();
@@ -18,8 +19,10 @@ export default function InvestPage() {
   const { planId } = params;
   const plan = plans.find((p) => p.id === planId);
   const { toast } = useToast();
+  const auth = getAuth(app);
 
   const [quantity, setQuantity] = useState(1);
+  const [isInvesting, setIsInvesting] = useState(false);
 
   if (!plan) {
     return (
@@ -38,8 +41,21 @@ export default function InvestPage() {
     }
   };
   
-  const handleInvest = () => {
-    const result = addOrder(plan, quantity);
+  const handleInvest = async () => {
+    const user = auth.currentUser;
+    if (!user) {
+        toast({
+            title: 'Error',
+            description: 'You must be logged in to invest.',
+            variant: 'destructive',
+        });
+        router.push('/login');
+        return;
+    }
+
+    setIsInvesting(true);
+    const result = await addOrder(user.uid, plan, quantity);
+    
     if (result.success) {
       toast({
         title: 'Success',
@@ -53,6 +69,7 @@ export default function InvestPage() {
         variant: 'destructive',
       });
     }
+    setIsInvesting(false);
   };
 
   const payMoney = plan.price * quantity;
@@ -154,8 +171,8 @@ export default function InvestPage() {
         </div>
       </main>
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
-        <Button onClick={handleInvest} className="w-full bg-red-600 hover:bg-red-700 text-white font-bold p-6 rounded-lg text-lg">
-          Invest Now
+        <Button onClick={handleInvest} className="w-full bg-red-600 hover:bg-red-700 text-white font-bold p-6 rounded-lg text-lg" disabled={isInvesting}>
+          {isInvesting ? 'Processing...' : 'Invest Now'}
         </Button>
       </div>
     </div>

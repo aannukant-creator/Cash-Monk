@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Home, ListTodo, FileText, User, Wallet, Landmark, Users, ClipboardList, Send, Headphones, Headset, CircleHelp, Gem } from "lucide-react";
@@ -8,10 +7,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { plans } from "@/lib/plans";
 import { useEffect, useState } from "react";
 import { getOrders, getBalance } from "@/lib/orders";
+import { getAuth } from "firebase/auth";
+import { app } from "@/lib/firebase";
 
 export default function HomePage() {
   const manufacturerPlans = plans.filter(p => p.category === 'manufacturer');
   const retailerPlans = plans.filter(p => p.category === 'retailer');
+  const auth = getAuth(app);
 
   const [balance, setBalance] = useState(0);
   const [productIncome, setProductIncome] = useState(0);
@@ -19,32 +21,35 @@ export default function HomePage() {
   const [userId, setUserId] = useState('');
 
   useEffect(() => {
-    // This effect will run on the client side after hydration.
-    if (typeof window !== 'undefined') {
-        const mobile = localStorage.getItem('userMobile') || '0000000000';
-        const id = localStorage.getItem('userId') || '00000';
-        setUserMobile(mobile);
-        setUserId(id);
-    }
-      
-    const updateBalanceAndIncome = () => {
-      const orders = getOrders();
-      const activeOrders = orders.filter(o => o.status === 'active');
-      
-      const now = new Date();
-      const currentDayIncome = activeOrders.reduce((acc, order) => {
-          // This is a simplified calculation.
-          // A real app would calculate income more precisely based on time passed.
-          return acc + (order.plan.dailyIncome * order.quantity); 
-      }, 0);
-      
-      setBalance(getBalance());
-      setProductIncome(currentDayIncome);
+    const fetchData = async (uid: string) => {
+        if (typeof window !== 'undefined') {
+            const mobile = localStorage.getItem('userMobile') || '0000000000';
+            const id = localStorage.getItem('userId') || '00000';
+            setUserMobile(mobile);
+            setUserId(id);
+        }
+          
+        const orders = await getOrders(uid);
+        const activeOrders = orders.filter(o => o.status === 'active');
+        
+        const now = new Date();
+        const currentDayIncome = activeOrders.reduce((acc, order) => {
+            // This is a simplified calculation.
+            return acc + (order.plan.dailyIncome * order.quantity); 
+        }, 0);
+        
+        setBalance(await getBalance(uid));
+        setProductIncome(currentDayIncome);
     };
 
-    updateBalanceAndIncome();
+    const unsubscribe = auth.onAuthStateChanged(user => {
+        if (user) {
+            fetchData(user.uid);
+        }
+    });
 
-  }, []);
+    return () => unsubscribe();
+  }, [auth]);
 
   return (
     <div className="bg-gray-100 min-h-screen font-sans pb-20">
@@ -182,7 +187,6 @@ export default function HomePage() {
           </TabsContent>
         </Tabs>
       </div>
-
 
       {/* Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg flex justify-around items-center text-gray-600 py-2">
