@@ -1,8 +1,11 @@
 {
-  "name": "Cesh Monk",
+  "name": "Cash Monk",
   "short_name": "Cash Monk",
-  "start_url": "https://cash-monk.netlify.app",
+  "description": "Cash Monk is a finance tracking PWA to manage your expenses and income easily.",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#F0F0F0",
   "theme_color": "#E51D1D",
   "icons": [
