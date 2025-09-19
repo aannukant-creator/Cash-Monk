@@ -1,11 +1,9 @@
 {
-  "name": "Cash Monk",
-  "short_name": "Cash Monk",
-  "description": "Cash Monk is a finance tracking PWA to manage your expenses and income easily.",
+  "name": "Cesh Monk",
+  "short_name": "CeshMonk",
+  "description": "Your investment partner",
   "start_url": "/",
-  "scope": "/",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#F0F0F0",
   "theme_color": "#E51D1D",
   "icons": [
